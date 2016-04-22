@@ -10,9 +10,11 @@ class Configuration
     @config = JSON.parse(File.read(file))
   end
 
-  def get_config(key)
+  def get_config(key, node = nil)
     if @config.nil?
       raise 'You have not initialised config yet.'
+    elsif node
+      @config[node][key]
     else
       @config[key]
     end
@@ -21,8 +23,8 @@ end
 
 module ConfigHelper
 
-  def get_config(key)
-    Configuration.instance.get_config(key)
+  def self.get_config(key, node = nil)
+    Configuration.instance.get_config(key, node)
   end
 
 end

@@ -12,7 +12,7 @@ class Deployment
   end
 
   def set_up
-    register_job(@factory.method(:copy_files))
+    register_job(@factory.method(:copy_local_files))
   end
 
   def process
