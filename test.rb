@@ -6,7 +6,7 @@ require_relative 'lib/configuration'
 
 include Logging
 
-Configuration.instance.load_config('/Users/william/workspace/bj_hookr/config/deployment_config.json')
+Configuration.instance.load_config('../../config/deployment_config.json')
 
 deployment = Deployment.new(DeploymentJobFactory.new)
 deployment.set_up
