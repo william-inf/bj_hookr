@@ -1,0 +1,14 @@
+{
+    "deployment" : {
+        "copy_local_files" : {
+            "job_1": {
+                "from_dir" : "/Users/william/workspace/bj_hookr/testing_folder/from/",
+                "to_dir" : "/Users/william/workspace/bj_hookr/testing_folder/to/"
+            },
+            "job_2": {
+                "from_dir" : "/Users/william/workspace/bj_hookr/testing_folder/from/",
+                "to_dir" : "/Users/william/workspace/bj_hookr/testing_folder/to/"
+            }
+        }
+    }
+}

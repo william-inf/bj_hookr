@@ -11,8 +11,8 @@ class Deployment
     @factory = factory
   end
 
-  def set_up
-    register_job(@factory.method(:copy_local_files))
+  def set_up(job)
+    register_job(@factory.method(job.to_sym))
   end
 
   def process

@@ -6,7 +6,7 @@ class TaskInProcessingState < State
   include Logging
 
   def next(state)
-    logger.debug("Changing state to #{TaskStateLevels::COMPLETED}")
+    logger.info 'Task state is now completed.'
     TaskCompleteState.new if valid?(state)
   end
 

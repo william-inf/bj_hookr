@@ -8,7 +8,7 @@ class TaskInitialisedState < State
 
   def next(state)
     if valid?(state)
-      logger.debug("Changing state to #{TaskStateLevels::PROCESSING}")
+      logger.info 'Task state is now processing'
       TaskInProcessingState.new
     else
       raise 'Illegal State Jump'
