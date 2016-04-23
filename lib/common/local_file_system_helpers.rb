@@ -33,8 +33,10 @@ class LocalFileSystemHelpers
 
     if copy
       FileUtils.cp(local_file, destination_file)
-      raise 'File copy not complete' if File.exist? destination_file
     end
+
+    logger.info "File exists: #{File.exist? destination_file}"
+
 
   end
 

@@ -9,6 +9,12 @@
                 "from_dir" : "/Users/william/workspace/bj_hookr/testing_folder/from/",
                 "to_dir" : "/Users/william/workspace/bj_hookr/testing_folder/to/"
             }
+        },
+        "build_config" : {
+            "job_1": {
+                "test" : "abc"
+            }
         }
+
     }
 }
