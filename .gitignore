@@ -4,7 +4,7 @@
 #!! ERROR: ruby  is undefined. Use list command to see defined gitignore types !!#
 
 .idea
-
+testing_folder
 
 ### Ruby ###
 *.gem
