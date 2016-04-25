@@ -27,7 +27,7 @@ class TaskOrchestrator
 
 end
 
-json = JSON.parse(File.read('../modules/deployment_module.json'))
+json = JSON.parse(File.read('../modules/deployment_module_example.json'))
 task = TaskOrchestrator.new(json)
 task.process
 
