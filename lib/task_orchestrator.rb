@@ -2,9 +2,10 @@ require 'json'
 require_relative 'deployment'
 require_relative 'deployment_job_factory'
 require_relative '../lib/task_module'
+require_relative '../lib/logging'
 
 class TaskOrchestrator
-  include
+  include Logging
 
   def initialize(task_module)
     @task_module = task_module

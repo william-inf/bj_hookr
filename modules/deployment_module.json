@@ -1,20 +1,31 @@
 {
     "deployment" : {
-        "copy_local_files" : {
-            "job_1": {
-                "from_dir" : "/Users/william/workspace/bj_hookr/testing_folder/from/",
-                "to_dir" : "/Users/william/workspace/bj_hookr/testing_folder/to/"
-            },
-            "job_2": {
-                "from_dir" : "/Users/william/workspace/bj_hookr/testing_folder/from/",
-                "to_dir" : "/Users/william/workspace/bj_hookr/testing_folder/to/"
-            }
-        },
         "build_config" : {
             "job_1": {
                 "test" : "abc"
             }
+        },
+        "copy_local_files" : {
+            "job_1": {
+                "from_dir" : "/bj_hookr/testing_folder/from/",
+                "to_dir" : "/bj_hookr/testing_folder/to/"
+            },
+            "job_2": {
+                "from_dir" : "/bj_hookr/testing_folder/from/",
+                "to_dir" : "/bj_hookr/testing_folder/to/"
+            }
+        },
+        "deploy_remote_files" : {
+            "job_1": {
+                "host" : "",
+                "user" : "",
+                "password" : "",
+                "local_path" : "",
+                "remote_path" : ""
+            }
         }
-
     }
 }
+
+
+
