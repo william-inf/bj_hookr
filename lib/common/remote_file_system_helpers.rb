@@ -59,9 +59,19 @@ class RemoteFileSystemHelpers
               raise e
             end
             logger.debug 'File doesnt exist, needs to be uploaded.'
-            sftp.upload!(local_file, remote_file)
-            sftp.setstat(remote_file, :permissions => FILE_PERM)
-            logger.debug 'File uploaded, no further action.'
+            begin
+              sftp.upload!(local_file, remote_file)
+              sftp.setstat(remote_file, :permissions => FILE_PERM)
+              logger.debug 'File uploaded, no further action.'
+            rescue Net::SFTP::StatusException => e
+              if e.code == 3
+                logger.error "Cannot upload file, permissions error. [error][#{e.message}]"
+              else
+                logger.error "Cannot upload file. [error][#{e.message}]"
+              end
+
+            end
+
           end
             logger.info "Processing complete for #{File.basename(local_file)}"
         end

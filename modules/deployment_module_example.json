@@ -7,12 +7,12 @@
         },
         "copy_local_files" : {
             "job_1": {
-                "from_dir" : "/bj_hookr/testing_folder/from/",
-                "to_dir" : "/bj_hookr/testing_folder/to/"
+                "from_dir" : "",
+                "to_dir" : ""
             },
             "job_2": {
-                "from_dir" : "/bj_hookr/testing_folder/from/",
-                "to_dir" : "/bj_hookr/testing_folder/to/"
+                "from_dir" : "",
+                "to_dir" : ""
             }
         },
         "deploy_remote_files" : {

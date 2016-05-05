@@ -1,30 +1,31 @@
-require_relative '../../lib/deployment_job/job_template'
+require_relative '../../lib/common/job_template'
 require_relative '../../lib/common/local_file_system_helpers'
-require_relative '../state/task_state_levels'
+require_relative '../../lib/common/exceptions'
 
 class CopyLocalFiles < JobTemplate
 
+  JOB_NAME = 'CopyLocalFiles'
+
   def initialize(config)
-    super('CopyLocalFiles', config)
+    super(JOB_NAME, config)
   end
 
   def process
-    @state.trigger(TaskStateLevels::PROCESSING)
-    @config.keys.each do |key|
-      logger.debug "Beginning copy task [#{key}]"
+    super do
+      @config.keys.each do |key|
+        validate_config(@config[key], %w(from_dir to_dir))
 
-      from_dir = @config[key]['from_dir']
-      to_dir = @config[key]['to_dir']
+        from_dir = @config[key]['from_dir']
+        to_dir = @config[key]['to_dir']
 
-      logger.debug "Copying files from #{from_dir} to #{to_dir}"
+        logger.debug "Copying files from #{from_dir} to #{to_dir}"
 
-      LocalFileSystemHelpers.get_files(from_dir).each do |file|
-        LocalFileSystemHelpers.copy_file(file, to_dir)
+        LocalFileSystemHelpers.get_files(from_dir).each do |file|
+          LocalFileSystemHelpers.copy_file(file, to_dir)
+        end
       end
     end
-    @state.trigger(TaskStateLevels::COMPLETED)
   end
 
-
-
 end
+

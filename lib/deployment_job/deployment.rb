@@ -1,5 +1,5 @@
-require_relative '../lib/deployment_job_factory'
-require_relative '../lib/logging'
+require_relative '../../lib/deployment_job/deployment_job_factory'
+require_relative '../../lib/logging'
 
 class Deployment
   include Logging
