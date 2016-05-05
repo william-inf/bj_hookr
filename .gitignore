@@ -5,6 +5,7 @@
 
 .idea
 testing_folder
+modules
 
 ### Ruby ###
 *.gem
