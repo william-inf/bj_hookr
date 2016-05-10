@@ -21,8 +21,9 @@ class RetrieveRemoteFiles < JobTemplate
         url = @config[key]['url']
         download_directory = @config[key]['download_directory']
         local_file_name = @config[key]['local_file_name']
-
+        logger.debug "Retrieving remote file #{url}"
         RemoteFileDownloader.retrieve_remote_file(url, download_directory, local_file_name)
+        logger.debug 'File retrieved.'
       end
     end
   end

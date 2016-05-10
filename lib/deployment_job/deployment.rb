@@ -16,9 +16,12 @@ class Deployment
   end
 
   def process
-    @jobs.each do |job|
+    logger.info 'Beginning Deployment Job tasks ...'
+    @jobs.each_with_index do |job, idx|
+      logger.info "#{idx + 1} - Beginning processing for deployment job: #{job}"
       job.call
     end
+    logger.info 'Deployment job tasks all complete.'
   end
 
   def register_job(job)
