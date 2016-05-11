@@ -40,4 +40,9 @@ class LocalFileSystemHelpers
 
   end
 
+  def self.delete_file(local_file)
+    logger.debug "Deleting file: #{local_file}"
+    File.delete(local_file) if File.exist? local_file
+  end
+
 end

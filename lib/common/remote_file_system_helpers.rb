@@ -10,6 +10,7 @@ class RemoteFileSystemHelpers
 
   FILE_PERM = 0644
   DIR_PERM = 0755
+  TOMCAT_WEBAPPS_FOLDER = '/var/lib/tomcat7/webapps/'
 
   def self.copy_remote_files(local_path, remote_path, ssh_details)
     logger.debug 'Opening connection to being file uploading process'
@@ -75,6 +76,38 @@ class RemoteFileSystemHelpers
           end
             logger.info "Processing complete for #{File.basename(local_file)}"
         end
+      end
+
+    end
+  end
+
+  def self.install_war_file(app_name, war_file_path, ssh_details)
+    logger.info 'Installing WAR file to Tomcat7 ...'
+    Net::SSH.start(ssh_details[:host], ssh_details[:user], password: ssh_details[:password]) do |ssh|
+
+      verbose = false
+
+      begin
+        logger.info 'Stopping tomcat'
+        ssh.exec!("sudo service tomcat7 stop && sudo rm -rf #{File.join(TOMCAT_WEBAPPS_FOLDER,app_name)}*") do |channel, stream, data|
+          logger.debug data if verbose
+        end
+
+        logger.info 'Copying and unzipping war file'
+        ssh.exec!("sudo cp #{war_file_path} #{TOMCAT_WEBAPPS_FOLDER} && sudo unzip #{File.join(TOMCAT_WEBAPPS_FOLDER, File.basename(war_file_path))} -d #{File.join(TOMCAT_WEBAPPS_FOLDER,app_name)}") do |channel, stream, data|
+          logger.debug data if verbose
+        end
+
+        logger.info 'Starting tomcat7'
+        ssh.exec!('sudo service tomcat7 start') do |channel, stream, data|
+          logger.debug data if verbose
+        end
+
+        logger.info '... Install complete. Tip me.'
+
+      rescue StandardError => e
+        logger.error 'Error trying to deploy!'
+        raise e
       end
 
     end

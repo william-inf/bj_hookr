@@ -20,6 +20,7 @@ class Deployment
     @jobs.each_with_index do |job, idx|
       logger.info "#{idx + 1} - Beginning processing for deployment job: #{job}"
       job.call
+      logger.info "----------- Job: #{job} completed. -----------"
     end
     logger.info 'Deployment job tasks all complete.'
   end

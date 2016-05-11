@@ -2,9 +2,9 @@ require_relative '../../lib/common/job_template'
 require_relative '../../lib/common/remote_file_system_helpers'
 require_relative '../../lib/common/local_file_system_helpers'
 
-class DeployRemoteFiles < JobTemplate
+class InstallTomcatWar < JobTemplate
 
-  JOB_NAME = 'DeployRemoteFiles'
+  JOB_NAME = 'InstallTomcatWar'
 
   def initialize(config)
     super(JOB_NAME, config)
@@ -13,19 +13,17 @@ class DeployRemoteFiles < JobTemplate
   def process
     super do
       @config.keys.each do |key|
-        validate_config(@config[key], %w(local_path remote_path host user password))
-        logger.debug "Beginning deployment of remote files [#{key}]"
-        local_path = @config[key]['local_path']
-        remote_path = @config[key]['remote_path']
+        validate_config(@config[key], %w(host user password war_file_path app_name))
+        logger.debug "Beginning installation of war file [#{key}]"
         ssh_details = {
             host: @config[key]['host'],
             user: @config[key]['user'],
             password: @config[key]['password']
         }
-
-        RemoteFileSystemHelpers.copy_remote_files(local_path, remote_path, ssh_details)
+        app_name = @config[key]['app_name']
+        war_file_path = @config[key]['war_file_path']
+        RemoteFileSystemHelpers.install_war_file(app_name, war_file_path, ssh_details)
       end
     end
   end
-
 end
