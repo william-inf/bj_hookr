@@ -85,7 +85,7 @@ class RemoteFileSystemHelpers
     logger.info 'Installing WAR file to Tomcat7 ...'
     Net::SSH.start(ssh_details[:host], ssh_details[:user], password: ssh_details[:password]) do |ssh|
 
-      verbose = false
+      verbose = true
 
       begin
         logger.info 'Stopping tomcat'
@@ -114,5 +114,4 @@ class RemoteFileSystemHelpers
   end
 
 end
-
 
