@@ -88,16 +88,21 @@ class RemoteFileSystemHelpers
 
     begin
       ssh = SSHProcessor.new(ssh_details)
+      logger.debug 'Stopping Tomcat7 service'
       ssh.with_ssh { 'sudo service tomcat7 stop' }
+      logger.debug 'Removing old WAR files'
       ssh.with_ssh { "sudo rm -rf #{File.join(TOMCAT_WEBAPPS_FOLDER,app_name)}*" }
+      logger.debug 'Copying over new WAR'
       ssh.with_ssh { "sudo cp #{war_file_path} #{TOMCAT_WEBAPPS_FOLDER}" }
+      logger.debug 'Unzipping WAR file'
       ssh.with_ssh { "sudo unzip #{File.join(TOMCAT_WEBAPPS_FOLDER, File.basename(war_file_path))} -d #{File.join(TOMCAT_WEBAPPS_FOLDER,app_name)}" }
+      logger.debug 'Starting Tomcat7 service'
       ssh.with_ssh { 'sudo service tomcat7 start' }
+      logger.debug 'Process complete.'
     rescue SSHStandardError => e
       logger.error "Error in SSH commands. Cannot proceed. Message: #{e.message}"
       raise StandardError.new(e.message)
     end
-
   end
 
 end
