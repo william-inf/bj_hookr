@@ -11,16 +11,15 @@ class Deployment
     @factory = factory
   end
 
-  def set_up(job)
-    register_job(@factory.method(job.to_sym))
+  def set_up(task)
+    register_job(@factory.get_task_processor_for_name(task))
   end
 
   def process
-    logger.info 'Beginning Deployment Job tasks ...'
     @jobs.each_with_index do |job, idx|
       logger.info "#{idx + 1} - Beginning processing for deployment job: #{job}"
-      job.call
-      logger.info "----------- Job: #{job} completed. -----------"
+      job.process
+      logger.info "Job: #{job} completed."
     end
     logger.info 'Deployment job tasks all complete.'
   end

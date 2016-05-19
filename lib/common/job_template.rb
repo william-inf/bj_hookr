@@ -7,9 +7,8 @@ class JobTemplate
 
   attr_reader :name
 
-  def initialize(name, config)
+  def initialize(name)
     @name = name
-    @config = config
   end
 
   def process

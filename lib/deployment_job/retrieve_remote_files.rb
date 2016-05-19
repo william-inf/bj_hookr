@@ -7,20 +7,21 @@ require_relative '../../lib/logging'
 class RetrieveRemoteFiles < JobTemplate
   include Logging
 
-  JOB_NAME = 'RetrieveRemoteFiles'
+  JOB_NAME = 'retrieve_remote_files'
 
-  def initialize(config)
-    super(JOB_NAME, config)
+  def initialize
+    super(JOB_NAME)
   end
 
   def process
+    config = TaskModuleHelper.get_task_module[@name]
     super do
-      @config.keys.each do |key|
-        validate_config(@config[key], %w(url download_directory local_file_name))
+      config.keys.each do |key|
+        validate_config(config[key], %w(url download_directory local_file_name))
 
-        url = @config[key]['url']
-        download_directory = @config[key]['download_directory']
-        local_file_name = @config[key]['local_file_name']
+        url = config[key]['url']
+        download_directory = config[key]['download_directory']
+        local_file_name = config[key]['local_file_name']
         logger.debug "Retrieving remote file #{url}"
         RemoteFileDownloader.retrieve_remote_file(url, download_directory, local_file_name)
         logger.debug 'File retrieved.'

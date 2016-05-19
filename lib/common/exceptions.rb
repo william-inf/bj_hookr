@@ -1,3 +1,6 @@
+class UnhandledTaskType < RuntimeError
+end
+
 class SSHStandardError < StandardError
 end
 

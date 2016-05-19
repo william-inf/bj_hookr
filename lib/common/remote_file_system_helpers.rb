@@ -6,13 +6,11 @@ require_relative '../../lib/logging'
 require_relative '../../lib/common/ssh_processor'
 require_relative '../../lib/common/exceptions'
 
-
 class RemoteFileSystemHelpers
   include Logging
 
   FILE_PERM = 0644
   DIR_PERM = 0755
-  TOMCAT_WEBAPPS_FOLDER = '/var/lib/tomcat7/webapps/'
 
   def self.copy_remote_files(local_path, remote_path, ssh_details)
     logger.debug 'Opening connection to being file uploading process'
@@ -83,22 +81,13 @@ class RemoteFileSystemHelpers
     end
   end
 
-  def self.install_war_file(app_name, war_file_path, ssh_details)
-    logger.info 'Installing WAR file to Tomcat7'
-
+  def self.process_ssh_requests(list, ssh_details)
     begin
       ssh = SSHProcessor.new(ssh_details)
-      logger.debug 'Stopping Tomcat7 service'
-      ssh.with_ssh { 'sudo service tomcat7 stop' }
-      logger.debug 'Removing old WAR files'
-      ssh.with_ssh { "sudo rm -rf #{File.join(TOMCAT_WEBAPPS_FOLDER,app_name)}*" }
-      logger.debug 'Copying over new WAR'
-      ssh.with_ssh { "sudo cp #{war_file_path} #{TOMCAT_WEBAPPS_FOLDER}" }
-      logger.debug 'Unzipping WAR file'
-      ssh.with_ssh { "sudo unzip #{File.join(TOMCAT_WEBAPPS_FOLDER, File.basename(war_file_path))} -d #{File.join(TOMCAT_WEBAPPS_FOLDER,app_name)}" }
-      logger.debug 'Starting Tomcat7 service'
-      ssh.with_ssh { 'sudo service tomcat7 start' }
-      logger.debug 'Process complete.'
+      list.keys.each do |key|
+        logger.debug "Running task: [#{list[key]['task']}]"
+        ssh.with_ssh { list[key]['task'] }
+      end
     rescue SSHStandardError => e
       logger.error "Error in SSH commands. Cannot proceed. Message: #{e.message}"
       raise StandardError.new(e.message)

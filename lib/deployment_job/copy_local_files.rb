@@ -6,17 +6,18 @@ class CopyLocalFiles < JobTemplate
 
   JOB_NAME = 'CopyLocalFiles'
 
-  def initialize(config)
-    super(JOB_NAME, config)
+  def initialize
+    super(JOB_NAME)
   end
 
   def process
+    config = TaskModuleHelper.get_task_module[@name]
     super do
-      @config.keys.each do |key|
-        validate_config(@config[key], %w(from_dir to_dir))
+      config.keys.each do |key|
+        validate_config(config[key], %w(from_dir to_dir))
 
-        from_dir = @config[key]['from_dir']
-        to_dir = @config[key]['to_dir']
+        from_dir = config[key]['from_dir']
+        to_dir = config[key]['to_dir']
 
         logger.debug "Copying files from #{from_dir} to #{to_dir}"
 

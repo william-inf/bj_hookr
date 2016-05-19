@@ -16,7 +16,8 @@ class SSHProcessor
 			Net::SSH.start(@host, @username, password: @password) do |ssh|
 				if block_given?
 					res = ssh.exec!(block.call)
-					if res.scan(/^(bash:).*$/).count > 0
+					# TODO: handle error'd responses better.
+					if res.scan(/^(bash:).*|(sudo:).*$/).count > 0
 						raise InvalidSSHCommand.new "Problem executing command. '#{res.gsub("\n", '')}'"
 					end
 				else
