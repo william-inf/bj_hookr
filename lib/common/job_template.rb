@@ -13,12 +13,19 @@ class JobTemplate
 
   def process
     begin
-      yield if block_given?
+      config = TaskModuleHelper.get_task_module[@name]
+      process_task(config)
     rescue HookrJobError => e
       logger.error "Error hit in #{caller[0][/`.*'/][1..-2]}.process(), ERROR: [#{e.message}]"
       raise e
     end
   end
+
+  def process_task(config)
+    raise 'Not implemented.'
+  end
+
+  protected
 
   def validate_config(config, key_list)
     key_list.each do |key|

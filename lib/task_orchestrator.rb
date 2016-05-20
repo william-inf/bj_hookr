@@ -15,7 +15,6 @@ class TaskOrchestrator
     @task_module.keys.each do |job|
       factory_class = Object.const_get("#{job.capitalize}JobFactory")
       factory = factory_class.new
-
       job_clazz = Object.const_get(job.capitalize).new(factory)
 
       TaskModule.instance.load_task_module(@task_module[job])
