@@ -1,4 +1,3 @@
-require 'artii'
 require_relative 'lib/task_orchestrator'
 
 hooker_module = 'test_module'

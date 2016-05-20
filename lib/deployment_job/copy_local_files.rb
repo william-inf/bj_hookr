@@ -4,7 +4,7 @@ require_relative '../../lib/common/exceptions'
 
 class CopyLocalFiles < JobTemplate
 
-  JOB_NAME = 'CopyLocalFiles'
+  JOB_NAME = 'copy_local_files'
 
   def initialize
     super(JOB_NAME)
