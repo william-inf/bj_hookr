@@ -5,7 +5,7 @@ require_relative '../../lib/common/exceptions'
 class CopyLocalFiles < JobTemplate
 
   def initialize
-    super('copy_local_files')
+    super(:copy_local_files)
   end
 
   def process_task(config)

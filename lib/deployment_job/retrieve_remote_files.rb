@@ -9,7 +9,7 @@ class RetrieveRemoteFiles < JobTemplate
 
 
   def initialize
-    super('retrieve_remote_files')
+    super(:retrieve_remote_files)
   end
 
   def process_task(config)

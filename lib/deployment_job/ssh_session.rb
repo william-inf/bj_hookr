@@ -5,7 +5,7 @@ require_relative '../../lib/common/ssh_processor'
 class SSHSession < JobTemplate
 
   def initialize
-    super('ssh_session')
+    super(:ssh_session)
   end
 
   def process_task(config)

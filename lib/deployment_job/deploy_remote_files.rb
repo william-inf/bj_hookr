@@ -5,7 +5,7 @@ require_relative '../../lib/common/local_file_system_helpers'
 class DeployRemoteFiles < JobTemplate
 
   def initialize
-    super('deploy_remote_files')
+    super(:deploy_remote_files)
   end
 
   def process_task(config)
