@@ -13,7 +13,7 @@ class JobTemplate
 
   def process
     begin
-      config = TaskModuleHelper.get_task_module[@name]
+      config = TaskModuleHelper.get_task_module[@name.to_s]
       process_task(config)
     rescue HookrJobError => e
       logger.error "Error hit in #{caller[0][/`.*'/][1..-2]}.process(), ERROR: [#{e.message}]"

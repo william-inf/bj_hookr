@@ -19,8 +19,8 @@ class DeployRemoteFiles < JobTemplate
           user: config[key]['user'],
           password: config[key]['password']
       }
+      RemoteFileSystemHelpers.copy_remote_files(local_path, remote_path, ssh_details)
     end
-    RemoteFileSystemHelpers.copy_remote_files(local_path, remote_path, ssh_details)
   end
 
 end

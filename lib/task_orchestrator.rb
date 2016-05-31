@@ -20,7 +20,7 @@ class TaskOrchestrator
       TaskModule.instance.load_task_module(@task_module[job])
 
       @task_module[job].keys.each do |task|
-        job_clazz.set_up(task)
+        job_clazz.set_up(task.to_sym)
       end
 
       job_clazz.process

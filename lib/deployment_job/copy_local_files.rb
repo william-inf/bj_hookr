@@ -12,8 +12,8 @@ class CopyLocalFiles < JobTemplate
     config.keys.each do |key|
       validate_config(config[key], %w(from_dir to_dir))
 
-      from_dir = config[key]['from_dir']
-      to_dir = config[key]['to_dir']
+      from_dir = config[key].fetch('from_dir')
+      to_dir = config[key].fetch('to_dir')
 
       logger.debug "Copying files from #{from_dir} to #{to_dir}"
 
