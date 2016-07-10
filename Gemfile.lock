@@ -15,6 +15,3 @@ DEPENDENCIES
   git
   net-sftp
   net-ssh
-
-BUNDLED WITH
-   1.10.6
