@@ -5,8 +5,7 @@ require_relative '../../lib/common/local_file_system_helpers'
 require_relative '../../lib/common/job_template'
 require_relative '../../lib/task_module'
 require_relative '../../lib/common/exceptions'
-Dir[File.dirname(__FILE__)+ '/*.rb'].each {|file| require file }
-
+Dir[File.dirname(__FILE__)+ '/*.rb'].each {|file| require_relative file }
 
 class DeploymentJobFactory
   include Logging
@@ -22,7 +21,7 @@ class DeploymentJobFactory
     if @job_hash.has_key? name
       @job_hash[name]
     else
-      raise UnhandledTaskType.new("Cannot find [#{name}] as a DeploymentJob.")
+      raise UnhandledTaskType.new("Cannot find [#{name}] as a DeploymentJob. We only have #{@job_hash.inspect} registered.")
     end
   end
 

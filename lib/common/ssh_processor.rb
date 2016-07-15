@@ -14,7 +14,7 @@ class SSHProcessor
 
 	def with_ssh(&block)
 		begin
-			Net::SSH.start(@host, @username, get_auth_context) do |ssh|
+ 			Net::SSH.start(@host, @username, get_auth_context) do |ssh|
 				if block_given?
 					res = ssh.exec!(block.call)
 					# TODO: handle error'd responses better.
@@ -42,9 +42,9 @@ class SSHProcessor
 	def get_auth_context
 		# Key or password based authentication. If you pass in a key, it will use that over password.
 		if @key_pem_path.nil?
-			[password: @password]
+			{ password: @password }
 		else
-			[keys: @key_pem_path]
+			{ keys: @key_pem_path }
 		end
 	end
 
