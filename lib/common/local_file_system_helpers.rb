@@ -6,12 +6,14 @@ class LocalFileSystemHelpers
 
   def self.get_files(directory)
     Dir.glob(directory + '*').map do |file|
+      logger.info file.inspect
       file if File.file? file
     end
   end
 
   def self.copy_file(local_file, destination)
     logger.info "About to copy file #{File.basename(local_file)}"
+    FileUtils.mkdir_p(destination) unless File.directory? destination
 
     destination_file = File.join(destination, File.basename(local_file))
     logger.debug 'Checking if file exists or has been modified.'

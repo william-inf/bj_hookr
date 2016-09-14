@@ -18,7 +18,9 @@ class CopyLocalFiles < JobTemplate
       logger.debug "Copying files from #{from_dir} to #{to_dir}"
 
       LocalFileSystemHelpers.get_files(from_dir).each do |file|
-        LocalFileSystemHelpers.copy_file(file, to_dir)
+        unless file.nil?
+          LocalFileSystemHelpers.copy_file(file, to_dir)
+        end
       end
     end
   end
