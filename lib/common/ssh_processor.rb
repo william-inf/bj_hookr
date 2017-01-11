@@ -18,6 +18,7 @@ class SSHProcessor
 				if block_given?
 					res = ssh.exec!(block.call)
 					# TODO: handle error'd responses better.
+					logger.debug(res)
 					if res.scan(/^(bash:).*|(sudo:).*$/).count > 0
 						raise InvalidSSHCommand.new "Problem executing command. '#{res.gsub("\n", '')}'"
 					end

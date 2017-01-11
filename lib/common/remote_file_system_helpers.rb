@@ -14,7 +14,7 @@ class RemoteFileSystemHelpers
 
   def self.copy_remote_files(local_path, remote_path, ssh_details)
     logger.debug 'Opening connection to being file uploading process'
-    Net::SSH.start(ssh_details[:host], ssh_details[:user], password: ssh_details[:password]) do |ssh|
+    Net::SSH.start(ssh_details[:host], ssh_details[:user], get_auth_context(ssh_details)) do |ssh|
       logger.debug 'Connection to host open'
       ssh.sftp.connect do |sftp|
         logger.info 'Begin file uploading process'
@@ -91,6 +91,15 @@ class RemoteFileSystemHelpers
     rescue SSHStandardError => e
       logger.error "Error in SSH commands. Cannot proceed. Message: #{e.message}"
       raise StandardError.new(e.message)
+    end
+  end
+
+  def self.get_auth_context(ssh_details)
+    # Key or password based authentication. If you pass in a key, it will use that over password.
+    if ssh_details.has_key? :key_pem
+      { keys: ssh_details[:key_pem] }
+    else
+      { password: ssh_details[:password] }
     end
   end
 

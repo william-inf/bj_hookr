@@ -10,14 +10,15 @@ class DeployRemoteFiles < JobTemplate
 
   def process_task(config)
     config.keys.each do |key|
-      validate_config(config[key], %w(local_path remote_path host user password))
+      validate_config(config[key], %w(local_path remote_path host user))
       logger.debug "Beginning deployment of remote files [#{key}]"
       local_path = config[key]['local_path']
       remote_path = config[key]['remote_path']
       ssh_details = {
           host: config[key]['host'],
           user: config[key]['user'],
-          password: config[key]['password']
+          password: config[key]['password'],
+          key_pem: config[key]['key_pem']
       }
       RemoteFileSystemHelpers.copy_remote_files(local_path, remote_path, ssh_details)
     end
