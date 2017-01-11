@@ -86,7 +86,7 @@ class RemoteFileSystemHelpers
       ssh = SSHProcessor.new(ssh_details)
       list.keys.each do |key|
         logger.debug "Running task: [#{list[key]['task']}]"
-        ssh.with_ssh { list[key]['task'] }
+        ssh.with_ssh { list[key].fetch 'task' }
       end
     rescue SSHStandardError => e
       logger.error "Error in SSH commands. Cannot proceed. Message: #{e.message}"
