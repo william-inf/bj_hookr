@@ -25,6 +25,9 @@ class TaskOrchestrator
 
       job_clazz.process
     end
+
+  rescue StandardError => e
+    logger.error("Task unsuccessful and unable to complete due to '#{e.message}'")
   end
 
 end

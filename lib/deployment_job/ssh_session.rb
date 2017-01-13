@@ -11,7 +11,7 @@ class SSHSession < JobTemplate
   def process_task(config)
     config.keys.each do |key|
       validate_config(config[key], %w(host user task_list))
-      logger.debug "Beginning installation of war file [#{key}]"
+      logger.debug "Beginning task [#{key}]"
       ssh_details = {
           host: config[key]['host'],
           user: config[key]['user'],

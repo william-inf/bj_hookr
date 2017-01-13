@@ -10,17 +10,19 @@ class DocTemplater < JobTemplate
 
 	def process_task(config)
 		config.keys.each do |key|
-			validate_config(config[key], %w(export_location export_file_name source_file template_file))
-
-			export_location = config[key].fetch('export_location')
+			validate_config(config[key], %w(export_file_name source_file template_file))
 			export_file_name = config[key].fetch('export_file_name')
 			source_file = config[key].fetch('source_file')
 			template_file = config[key].fetch('template_file')
+			defaults_file = config[key].fetch('defaults_file', nil)
 
 			logger.debug "Templating files from #{source_file} with #{template_file}"
 
-			template_engine = TemplateEngine.new(source_file, template_file)
-			file = template_engine.create_file
+			te = TemplateEngine.new(source_file, template_file, defaults_file)
+			te.create_file_contents
+			te.export_file(export_file_name)
+
+			logger.info 'Template created, file exported.'
 		end
 	end
 
