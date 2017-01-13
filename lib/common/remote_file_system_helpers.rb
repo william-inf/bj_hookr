@@ -96,7 +96,7 @@ class RemoteFileSystemHelpers
 
   def self.get_auth_context(ssh_details)
     # Key or password based authentication. If you pass in a key, it will use that over password.
-    if ssh_details.has_key? :key_pem
+    if ssh_details.fetch(:key_pem, nil)
       { keys: ssh_details[:key_pem] }
     else
       { password: ssh_details[:password] }
