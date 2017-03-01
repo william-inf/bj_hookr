@@ -1,5 +1,4 @@
 require_relative '../../lib/logging'
-require_relative '../../lib/logging'
 require_relative '../../lib/common/exceptions'
 
 class JobTemplate
