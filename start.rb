@@ -26,7 +26,7 @@ opt_parser.parse!
 case ARGV[0]
 	when 'run'
 		if File.exist? options[:file]
-			json = JSON.parse(File.read('#{options[:file]}'))
+			json = JSON.parse(File.read(options[:file]))
 			task = TaskOrchestrator.new(json)
 			task.process
 		else
@@ -35,7 +35,7 @@ case ARGV[0]
 	when 'history'
 		puts "call history #{options.inspect}"
 	when 'list'
-		files = SmithersHelpers.get_files_in_directory('/opt/ruby/deployment_modules/')
+		files = SmithersHelpers.get_files_in_directory('/home/williamt/dev/ruby/deployment_modules/')
 		puts '#### Smithers Modules ####'
 		files.each_with_index do |file, idx|
 			puts "#{idx + 1}.\t #{file}"
