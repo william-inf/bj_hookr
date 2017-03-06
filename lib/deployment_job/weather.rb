@@ -17,7 +17,7 @@ class Weather < JobTemplate
 
       weather_retriever = WeatherRetriever.new(api_key)
       logger.debug weather_retriever.get_location_weather(location, country)
-      # make this nicer..
+      # make this much nicer..
     end
   end
 
