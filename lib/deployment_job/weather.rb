@@ -16,7 +16,9 @@ class Weather < JobTemplate
       country = config[key]['country']
 
       weather_retriever = WeatherRetriever.new(api_key)
-      logger.debug weather_retriever.get_location_weather(location, country)
+      result = weather_retriever.get_location_weather(location, country)
+      logger.info "Current Weather: #{result.description} - #{result.temperature} deg C"
+      logger.debug result.inspect
       # make this much nicer..
     end
   end
