@@ -1,13 +1,18 @@
 require_relative '../../lib/logging'
 require_relative '../../lib/common/exceptions'
+require_relative '../../lib/common/colorize'
+require 'artii'
 
 class JobTemplate
   include Logging
+  include Colorize
 
   attr_reader :name
 
   def initialize(name)
     @name = name
+    @a = Artii::Base.new :font => 'roman'
+
   end
 
   def process
@@ -31,5 +36,4 @@ class JobTemplate
       raise HookrInvalidConfigError.new "Config missing key: [#{key}]" unless config.has_key? key
     end
   end
-
 end

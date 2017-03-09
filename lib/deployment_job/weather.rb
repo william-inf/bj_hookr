@@ -8,6 +8,7 @@ class Weather < JobTemplate
   end
 
   def process_task(config)
+
     config.keys.each do |key|
       validate_config(config[key], %w(api_key location country))
       logger.debug "Retrieving Weather for [#{key}]"
@@ -17,11 +18,16 @@ class Weather < JobTemplate
 
       weather_retriever = WeatherRetriever.new(api_key)
       result = weather_retriever.get_location_weather(location, country)
-      logger.info "Current Weather: #{result.description} - #{result.temperature} deg C"
-      logger.debug result.inspect
+      logger.debug "\n\n#{@a.asciify('Current Weather')}\n" +
+          "#{colorize('Description', 'red')}: #{result.description}\n" +
+          "#{colorize('Current Temperature', 'red')}: #{result.temperature} (Min: #{result.temp_min} - Max: #{result.temp_max})\n" +
+          "#{colorize('Humidity', 'red')}: #{result.humidity}\n" +
+          "#{colorize('Wind Speed', 'red')}: #{result.wind_speed}\n" +
+          "#{colorize('Wind Direction', 'red')}: #{result.wind_direction}\n" +
+          "#{colorize('Sunrise', 'red')}: #{Time.at(result.sunrise)}\n\n"
+          "#{colorize('Sunset', 'red')}: #{Time.at(result.sunset)}\n\n"
       # make this much nicer..
     end
   end
 
 end
-
