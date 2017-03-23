@@ -33,7 +33,7 @@ class WeatherRetriever
   end
 
   def make_api_request(location, country)
-    HTTParty.get(@base_uri + "/weather?q=#{location},#{country}&appid=#{@api_key}&units=#{@unit}")
+    HTTParty.get(@base_uri + "/weather?appid=#{@api_key}&q=#{location},#{country}&units=#{@unit}")
   end
 
 end
